@@ -1,0 +1,11 @@
+1) Install Linux Machine (Google cloud / VM) - Preferred CentOS 7
+2) Disable Selinux , Firewalld and reboot
+3) Got to URL https://docs.docker.com/
+   Go to "Get Docker" and follow the process.
+
+wget https://docs.docker.com/engine/installation/linux/repo_files/centos/docker.repo -O /etc/yum.repos.d/docker.repo
+yum install docker-engine -y
+systemctl start docker
+
+Test the docker Installation:
+ docker run hello-world
