@@ -9,3 +9,8 @@ systemctl start docker
 
 Test the docker Installation:
  docker run hello-world
+ 
+ ----------------------------------------------------------------------------
+ Install Docker CS.
+ curl -SLf https://packages.docker.com/1.12/install.sh | sh
+
