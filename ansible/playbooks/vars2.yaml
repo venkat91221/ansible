@@ -1,0 +1,12 @@
+---
+- hosts: all
+  vars_files:
+    - myvar.yaml
+  tasks:
+    - name: Printing package name
+      debug: 
+        msg: "Package Name = {{pack_name}}"
+    - name: Printing Service name
+      debug:
+        msg: "Service Name = {{serv_name}}"
+...
