@@ -1,0 +1,9 @@
+[centos]
+10.128.0.5
+10.128.0.4
+[centos:vars]
+ansible_user=admin
+[ubuntu]
+10.128.0.6 ansible_user=ubuntu
+#[localhost]
+#127.0.0.1 ansible_user=admin
