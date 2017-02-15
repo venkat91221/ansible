@@ -1,9 +1,0 @@
----
-- hosts: all
-  become: true
-  vars_files:
-    - "vars/{{ansible_distribution}}.yaml"
-  tasks:
-    - include: plays/install_web.yaml
-    - include: plays/service_web.yaml
-

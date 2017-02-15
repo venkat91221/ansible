@@ -1,4 +1,0 @@
-- name: Start Web Server
-  service:
-    name: "{{serv_name}}"
-    state: started
