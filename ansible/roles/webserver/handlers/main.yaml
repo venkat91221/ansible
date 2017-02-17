@@ -1,2 +1,0 @@
-- name: Restart httpd
-  action: service name={{serv_name}} state=restarted
