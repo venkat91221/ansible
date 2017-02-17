@@ -1,0 +1,62 @@
+- name: Create instance(s)
+  hosts: localhost
+  connection: local
+  gather_facts: no
+
+  vars:
+    service_account_email: sample@demo3-158214.iam.gserviceaccount.com 
+    credentials_file: /opt/demo3.json
+    project_id: demo3-158214 
+    machine_type: n1-standard-1
+    image: debian-7
+
+  tasks:
+
+   - name: Launch instances
+     gce:
+         instance_names: dev
+         machine_type: "{{ machine_type }}"
+         image: "{{ image }}"
+         service_account_email: "{{ service_account_email }}"
+         credentials_file: "{{ credentials_file }}"
+         project_id: "{{ project_id }}"
+     register: out
+
+   - debug: var="out.instance_data[0].name"
+
+#   - name: checking var
+#     debug: 
+#        var: "{{item.instance_data.name}}"
+#     with_items: out.stdout
+#
+   - name: Setting facts
+     set_fact: 
+        ipname: "{{out.instance_data[0].name }}"
+#
+   - name: debugged output
+     debug: 
+        msg: "{{ipname}}"
+
+   - wait_for:
+       host: "{{ipname}}" 
+       port: 22
+
+   - name: Addhosts
+     add_host: 
+        name: "{{ipname}}"
+        groups: centos 
+        ansible_user: admin
+   
+   - name: Print thoise
+     debug:
+        msg: "{{item}}"
+     with_items: "{{ groups['all']}}"
+
+- hosts: centos 
+  tasks:
+    - name: check conn
+      debug: 
+        msg: "Hello"
+      when: "{{ipname}}" in  "{{ groups['all'] }}"
+
+

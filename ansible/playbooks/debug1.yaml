@@ -1,0 +1,10 @@
+---
+- hosts: all
+  tasks:
+    - name: Print Sample Message
+      debug:
+        msg: "Hello I am printing something"
+    - name: Print Ansible Distribution
+      debug:
+        msg: "OS Distribution = {{ ansible_distribution }} "
+...

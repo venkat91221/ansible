@@ -1,0 +1,13 @@
+---
+- hosts: localhost
+  tasks:
+    - name: Run on Local host
+      debug:
+        msg: "{{ansible_distribution}}"
+
+- hosts: dev 
+  tasks:
+    - name: Run on remote host
+      debug: 
+        msg: "{{ansible_distribution}}"
+...

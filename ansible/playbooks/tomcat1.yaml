@@ -1,0 +1,6 @@
+- hosts: centos
+  become: yes
+  vars:
+    user_name: ramu
+  roles:
+     - tomcat

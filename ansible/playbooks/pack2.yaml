@@ -1,0 +1,19 @@
+---
+- hosts: all
+  become: true
+  vars:
+    pack_name: httpd
+    serv_name: httpd
+  tasks:
+    - name: "Install package {{pack_name}}"
+      yum: 
+        name: "{{pack_name}}"
+        state: latest
+      when: ansible_distribution == "CentOS"
+
+    - name: "Startservice {{serv_name}}"
+      service:
+        name: "{{serv_name}}"
+        state: started
+      when: ansible_distribution == "CentOS"
+...

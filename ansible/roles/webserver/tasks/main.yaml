@@ -1,0 +1,15 @@
+- name: Install Web Server
+  yum: 
+        name: "{{pack_name}}" 
+        state: installed
+  notify: Restart httpd
+
+- name: Copy index.html file
+  copy:
+        src: index.html
+        dest: /var/www/html/index.html
+        
+- name: create name.html file
+  template:
+        src: name.html.j2
+        dest: /var/www/html/name.html

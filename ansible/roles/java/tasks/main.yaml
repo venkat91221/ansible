@@ -1,0 +1,23 @@
+- name: Download Java
+  copy:
+    src: jdk-8u121-linux-x64.tar.gz
+    dest: /opt
+
+- stat:
+    path: /opt/java
+  register: javastat
+
+- name: Extarct TAR file
+  unarchive: 
+    src: /opt/jdk-8u121-linux-x64.tar.gz
+    dest: /opt
+    remote_src: yes
+  when: javastat.stat.isdir is not defined
+
+- stat:
+    path: /opt/jdk1.8.0_121
+  register: javastat
+
+- name: Move the directory
+  command: mv /opt/jdk1.8.0_121 /opt/java
+  when: javastat.stat.isdir is defined

@@ -1,0 +1,35 @@
+- name: create user
+  user: 
+    name: "{{user_name}}"
+
+- name: create /tomcat
+  file: 
+    path: /tomcat
+    mode: 0777
+    state: directory
+
+- name: create user tomcat directory
+  file:
+    path: "/tomcat/{{user_name}}"
+    mode: 0755
+    state: directory
+    owner: "{{user_name}}"
+    group: "{{user_name}}"
+
+- stat:
+    path: "/tomcat/{{user_name}}/tomcat"
+  register: tstat
+
+- name: Install Tomcat
+  unarchive: 
+    src: /opt/apache-tomcat-9.0.0.M17.tar.gz
+    dest: "/tomcat/{{user_name}}" 
+  when: tstat.stat.isdir is not defined
+
+- stat: 
+    path: "/tomcat/{{user_name}}/apache-tomcat-9.0.0.M17"
+  register: tstat
+ 
+- name: rename tomcat directory
+  command: mv "/tomcat/{{user_name}}/apache-tomcat-9.0.0.M17" "/tomcat/{{user_name}}/tomcat"
+  when: tstat.stat.isdir is defined 

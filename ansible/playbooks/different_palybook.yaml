@@ -1,0 +1,36 @@
+---
+- name: Install Web Server on centos
+  hosts: centos
+  become: yes
+  vars: 
+    - pack_name: httpd
+    - serv_name: httpd
+  tasks:
+    - name: Install {{pack_name}}
+      yum: 
+        name: "{{pack_name}}"
+        state: installed
+      when: ansible_distribution == "CentOS"  
+    - name: Start {{serv_name}}
+      service:
+        name: "{{serv_name}}"
+        state: started
+      when: ansible_distribution == "CentOS"  
+
+- name: Install Web Server on Ubuntu
+  hosts: ubuntu
+  become: yes
+  vars:
+    - pack_name: apache2
+    - serv_name: apache2
+  tasks:
+    - name: Install {{pack_name}}
+      apt:
+        name: "{{pack_name}}"
+        state: installed
+      when: ansible_distribution == "Ubuntu"
+    - name: Start {{serv_name}}
+      service:
+        name: "{{serv_name}}"
+        state: started 
+      when: ansible_distribution == "Ubuntu"

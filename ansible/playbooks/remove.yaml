@@ -1,0 +1,11 @@
+---
+- hosts: all
+  become: yes
+  tasks: 
+    - yum: 
+        name: httpd
+        state: absent 
+    - apt:
+        name: apache2
+        state: absent
+
